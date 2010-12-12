@@ -1,0 +1,31 @@
+{
+  "name"        : "AutoProxy for Chrome",
+  "version"     : "0.0.1",
+  "description" : "Across the Great Fucking Wall, we can reach every corner in the world.",
+  "homepage_url": "https://autoproxy.org/",
+  "update_url"  : "https://autoproxy.org/chrome/update.xml",
+
+  "icons": {
+    "16" : "img/logo16.png",
+    "48" : "img/logo48.png"
+//    "128": ""
+  },
+
+  "browser_action": {
+    "default_title": "AutoProxy",
+    "default_icon" : "img/logo48.png",
+    "default_popup": "popup/popup.html"
+  },
+
+  "options_page": "option/option.html",
+
+  "background_page": "global.html",
+
+  "permissions": [
+    "experimental",
+    "proxy",
+//    "http://*/*",  ?
+//    "https://*/*", ?
+    "https://autoproxy-gfwlist.googlecode.com/"
+  ]
+}
