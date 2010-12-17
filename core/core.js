@@ -10,27 +10,13 @@ var defaultProxy =
     }
   }
 }
+var fallbackProxy = {};
 
-var fallbackProxy =
+// won't work, webRequest API is not ready yet
+function AutoProxy(reqst)
 {
-  rules: {
-    singleProxy: {
-      scheme: "http",
-      host  : "127.0.0.1",
-      port  : 8000
-    }
-  }
-}
+  var proxyConfig = shouldProxy(reqst.url) ? defaultProxy : fallbackProxy;
 
-function AutoProxy(request)
-{
-  // One of the must have API for us is still under working by upstream currently.
-  // http://code.google.com/p/chromium/issues/detail?id=50943
-  alert("Great! The long-awaited webRequest API finally ships!");
-
-  var proxyConfig = shouldProxy(request.url) ? defaultProxy : fallbackProxy;
-
-  // The Proxy API has already been ready!
   chrome.experimental.proxy.useCustomProxySettings(proxyConfig);
 }
 
@@ -40,4 +26,21 @@ function shouldProxy(url)
   return false;
 }
 
-chrome.experimental.webRequest.onBeforeRequest.addListener(AutoProxy);
+
+
+// test...
+chrome.experimental.webRequest.onBeforeRequest.addListener(
+  function(reqst) {
+    alert("Great! The long-awaited webRequest API finally ships!");
+  }
+);
+
+// workaround...
+chrome.experimental.proxy.useCustomProxySettings(
+  {
+    autoDetect: false,
+    pacScript: {
+      url: "http://autoproxy2pac.appspot.com/pac/ssh-d"
+    }
+  }
+);

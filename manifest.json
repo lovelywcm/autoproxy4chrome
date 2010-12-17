@@ -24,6 +24,7 @@
   "permissions": [
     "experimental",
     "proxy",
+    "web_progress",
 //    "http://*/*",  ?
 //    "https://*/*", ?
     "https://autoproxy-gfwlist.googlecode.com/"
